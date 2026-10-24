@@ -1,103 +1,296 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101014">
-<title>BrokeFlix</title>
+<title>BrokeFlix — Your World of Entertainment</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#101014;color:#f5f5f5;font-family:Arial,sans-serif}
-header{padding:22px 5%;background:#15151b;position:sticky;top:0;z-index:2;border-bottom:1px solid #292932}
-.logo{font-size:28px;font-weight:900;color:#e50914;letter-spacing:-1px}
-.tagline{color:#aaa;font-size:12px;margin-top:5px}
-main{padding:24px 5%}
-.hero{padding:30px 22px;border-radius:14px;background:linear-gradient(120deg,#402020,#191923 70%);margin-bottom:28px}
-.hero h1{font-size:30px;margin:0 0 10px}
-.hero p{color:#ccc;line-height:1.5}
-.search{width:100%;padding:14px;border-radius:9px;border:1px solid #444;background:#1c1c24;color:white;font-size:16px;margin:0 0 20px}
-.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
-.filters button{border:1px solid #41414b;background:#202028;color:white;padding:10px 15px;border-radius:20px;font-size:14px}
-.filters button.active{background:#e50914;border-color:#e50914}
-h2{font-size:20px;margin:24px 0 15px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.card{background:#1b1b23;border-radius:10px;overflow:hidden;min-width:0;border:1px solid #292932}
-.poster{height:125px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#4a2639,#171721);font-size:36px}
-.info{padding:12px}
-.info h3{font-size:15px;margin:0 0 7px;overflow-wrap:anywhere}
-.info p{font-size:12px;color:#aaa;margin:0 0 12px}
-.card button{width:100%;padding:10px;border:0;border-radius:6px;background:#e50914;color:white;font-weight:bold}
-.note{font-size:13px;color:#aaa;line-height:1.6;margin-top:30px}
-footer{text-align:center;padding:25px;color:#777;font-size:12px}
-@media(min-width:650px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.poster{height:180px}.hero{padding:45px}}
+:root {
+  --red: #e50914;
+  --bg: #090909;
+  --muted: #aaa;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 17px 5%;
+  background: rgba(9,9,9,.96);
+  border-bottom: 1px solid #242424;
+}
+.logo {
+  color: var(--red);
+  font-size: 27px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  white-space: nowrap;
+}
+nav { display: flex; gap: 17px; }
+nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 13px;
+}
+nav a:hover { color: white; }
+.search {
+  width: 180px;
+  min-width: 90px;
+  padding: 10px 12px;
+  color: white;
+  background: #202020;
+  border: 1px solid #444;
+  border-radius: 5px;
+  outline: none;
+}
+.search:focus { border-color: var(--red); }
+.hero {
+  min-height: 430px;
+  display: flex;
+  align-items: center;
+  padding: 60px 6%;
+  background:
+    linear-gradient(90deg,#090909 0%,rgba(9,9,9,.88) 35%,rgba(9,9,9,.1) 100%),
+    linear-gradient(0deg,#090909 0%,transparent 45%),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1800&q=85") center/cover;
+}
+.hero-content { max-width: 530px; }
+.tag {
+  color: #ff5a60;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+.hero h1 {
+  font-size: clamp(40px,7vw,72px);
+  margin: 13px 0;
+  letter-spacing: -2px;
+}
+.hero p {
+  color: #ddd;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 450px;
+}
+.buttons { display: flex; gap: 10px; margin-top: 23px; }
+.btn {
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary { background: white; color: black; }
+.secondary { background: #393939; color: white; }
+.btn:active { transform: scale(.97); }
+main { padding: 10px 5% 45px; }
+.section { margin: 28px 0 36px; }
+.section h2 { font-size: 21px; margin: 0 0 15px; }
+.row {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 14px;
+}
+.card {
+  min-width: 0;
+  cursor: pointer;
+  transition: transform .2s;
+}
+.card:hover { transform: translateY(-5px); }
+.poster {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  display: block;
+  background: #222;
+  border-radius: 7px;
+  border: 1px solid #292929;
+}
+.card h3 {
+  font-size: 14px;
+  margin: 9px 0 5px;
+  overflow-wrap: anywhere;
+}
+.card p { color: var(--muted); font-size: 12px; margin: 0; }
+.empty { color: var(--muted); padding: 20px 0; }
+footer {
+  border-top: 1px solid #242424;
+  padding: 25px 5%;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.7;
+}
+@media(max-width:700px) {
+  header { flex-wrap: wrap; padding: 14px 4%; }
+  nav { order: 3; width: 100%; gap: 15px; overflow-x: auto; }
+  .search { margin-left: auto; width: 145px; }
+  .hero { min-height: 390px; padding: 42px 5%; }
+  .row { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px 12px; }
+  .section h2 { font-size: 19px; }
+  main { padding-left: 4%; padding-right: 4%; }
+}
 </style>
 </head>
 <body>
+
 <header>
-<div class="logo">BROKEFLIX</div>
-<div class="tagline">YOUR COLLECTION. YOUR SCREEN.</div>
+  <div class="logo">BROKEFLIX</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#trending">Trending</a>
+    <a href="#movies">Movies</a>
+    <a href="#anime">Anime</a>
+    <a href="#library">My Library</a>
+  </nav>
+  <input id="search" class="search" type="search"
+    placeholder="Search titles..." aria-label="Search titles">
 </header>
-<main>
-<section class="hero">
-<h1>Your next watch awaits.</h1>
-<p>Your personal video library. Organize your favourites and find something to watch.</p>
+
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="tag">YOUR PERSONAL CINEMA</div>
+    <h1>YOUR NEXT<br>OBSESSION.</h1>
+    <p>A universe of movies, series, anime, and memories.
+       One place for everything you love watching.</p>
+    <div class="buttons">
+      <button class="btn primary" onclick="document.querySelector('#trending').scrollIntoView({behavior:'smooth'})">▶ Explore</button>
+      <button class="btn secondary" onclick="document.querySelector('#library').scrollIntoView({behavior:'smooth'})">＋ My Library</button>
+    </div>
+  </div>
 </section>
-<input class="search" id="search" placeholder="Search your library..." aria-label="Search videos">
-<div class="filters" id="filters">
-<button class="active" data-category="All">All</button>
-<button data-category="Movies">Movies</button>
-<button data-category="Series">Series</button>
-<button data-category="Anime">Anime</button>
-<button data-category="Other">Other</button>
-</div>
-<h2 id="heading">Your library</h2>
-<div class="grid" id="grid"></div>
-<p class="note">Your catalogue is currently a demo. No videos or private links are connected. Add your own titles in the website code when you're ready. Never put passwords, Telegram tokens, or private video links in a public repository.</p>
+
+<main>
+  <section class="section" id="trending">
+    <h2>🔥 Trending Picks</h2>
+    <div class="row">
+      <article class="card" data-title="Interstellar" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg" alt="Interstellar poster">
+        <h3>Interstellar</h3><p>Sci-Fi · Adventure</p>
+      </article>
+      <article class="card" data-title="Inception" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg" alt="Inception poster">
+        <h3>Inception</h3><p>Sci-Fi · Thriller</p>
+      </article>
+      <article class="card" data-title="Stranger Things" data-category="series">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg" alt="Stranger Things poster">
+        <h3>Stranger Things</h3><p>Mystery · Series</p>
+      </article>
+      <article class="card" data-title="Spider-Man: Into the Spider-Verse" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg" alt="Spider-Man poster">
+        <h3>Spider-Verse</h3><p>Animation · Action</p>
+      </article>
+      <article class="card" data-title="Your Name" data-category="anime">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/q719jXXEzOoYaps6babgKnONONX.jpg" alt="Your Name poster">
+        <h3>Your Name</h3><p>Anime · Romance</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="movies">
+    <h2>🎬 Movie Night</h2>
+    <div class="row">
+      <article class="card" data-title="The Dark Knight" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" alt="The Dark Knight poster">
+        <h3>The Dark Knight</h3><p>Action · Crime</p>
+      </article>
+      <article class="card" data-title="Dune Part Two" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg" alt="Dune Part Two poster">
+        <h3>Dune: Part Two</h3><p>Sci-Fi · Adventure</p>
+      </article>
+      <article class="card" data-title="The Batman" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg" alt="The Batman poster">
+        <h3>The Batman</h3><p>Action · Mystery</p>
+      </article>
+      <article class="card" data-title="Avatar" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/kyeqWdyUXW608qlYkRqosgbbJyK.jpg" alt="Avatar poster">
+        <h3>Avatar</h3><p>Fantasy · Sci-Fi</p>
+      </article>
+      <article class="card" data-title="Coco" data-category="movies">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/gGEsBPAijhVUFoiNpgZXqRVWJt2.jpg" alt="Coco poster">
+        <h3>Coco</h3><p>Animation · Family</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="anime">
+    <h2>⚡ Anime Universe</h2>
+    <div class="row">
+      <article class="card" data-title="Demon Slayer" data-category="anime">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/xUfRZu2mi8jH6SzQEJGP6tjBuYj.jpg" alt="Demon Slayer poster">
+        <h3>Demon Slayer</h3><p>Anime · Action</p>
+      </article>
+      <article class="card" data-title="Jujutsu Kaisen" data-category="anime">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg" alt="Jujutsu Kaisen poster">
+        <h3>Jujutsu Kaisen</h3><p>Anime · Fantasy</p>
+      </article>
+      <article class="card" data-title="One Piece" data-category="anime">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/cMD9Ygz11zjJzAovURpO75Qg7rT.jpg" alt="One Piece poster">
+        <h3>One Piece</h3><p>Anime · Adventure</p>
+      </article>
+      <article class="card" data-title="Death Note" data-category="anime">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/bD1T8gN9mJ7K5z0f0yG1e9Jf6vG.jpg" alt="Death Note poster">
+        <h3>Death Note</h3><p>Anime · Thriller</p>
+      </article>
+      <article class="card" data-title="Spirited Away" data-category="anime">
+        <img class="poster" loading="lazy" src="https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg" alt="Spirited Away poster">
+        <h3>Spirited Away</h3><p>Anime · Fantasy</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="library">
+    <h2>📁 My Library</h2>
+    <p style="color:#aaa;line-height:1.7">Your personal collection will live here. We'll add your own videos and connect playback in a later step.</p>
+    <div class="row">
+      <article class="card" data-title="My Videos" data-category="library">
+        <img class="poster" loading="lazy" src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80" alt="Camera">
+        <h3>My Videos</h3><p>Personal collection</p>
+      </article>
+    </div>
+  </section>
+  <p id="empty" class="empty" hidden>No titles found. Try another search.</p>
 </main>
-<footer>BROKEFLIX · MADE FOR YOUR SCREEN</footer>
+
+<footer>
+  BROKEFLIX · Made for your own personal cinema.<br>
+  Demo catalogue only. Poster images load from external services.
+</footer>
+
 <script>
-const videos=[
-{title:"Example Movie",category:"Movies",icon:"🎬"},
-{title:"Example Series",category:"Series",icon:"📺"},
-{title:"Example Anime",category:"Anime",icon:"🌸"},
-{title:"My Videos",category:"Other",icon:"🎞️"}
-];
-let selected="All";
-const grid=document.getElementById("grid");
-function render(){
-const q=document.getElementById("search").value.trim().toLowerCase();
-const shown=videos.filter(v=>(selected==="All"||v.category===selected)&&v.title.toLowerCase().includes(q));
-grid.innerHTML="";
-if(!shown.length){grid.innerHTML="<p>No matching titles yet.</p>";return}
-shown.forEach(v=>{
-const card=document.createElement("article");
-card.className="card";
-const poster=document.createElement("div");
-poster.className="poster";
-poster.textContent=v.icon;
-const info=document.createElement("div");
-info.className="info";
-const title=document.createElement("h3");
-title.textContent=v.title;
-const category=document.createElement("p");
-category.textContent=v.category;
-const btn=document.createElement("button");
-btn.textContent="Coming soon";
-btn.disabled=true;
-btn.style.opacity=".65";
-info.append(title,category,btn);
-card.append(poster,info);
-grid.append(card);
+const search = document.getElementById('search');
+const cards = [...document.querySelectorAll('.card')];
+const sections = [...document.querySelectorAll('.section')];
+const empty = document.getElementById('empty');
+
+search.addEventListener('input', () => {
+  const query = search.value.trim().toLowerCase();
+  let visible = 0;
+
+  cards.forEach(card => {
+    const matches = card.dataset.title.toLowerCase().includes(query);
+    card.hidden = !matches;
+    if (matches) visible++;
+  });
+
+  sections.forEach(section => {
+    section.hidden = !section.querySelector('.card:not([hidden])');
+  });
+
+  empty.hidden = visible !== 0;
 });
-}
-document.querySelectorAll("#filters button").forEach(btn=>btn.addEventListener("click",()=>{
-selected=btn.dataset.category;
-document.querySelectorAll("#filters button").forEach(b=>b.classList.toggle("active",b===btn));
-render();
-}));
-document.getElementById("search").addEventListener("input",render);
-render();
 </script>
+
 </body>
 </html>
+```
